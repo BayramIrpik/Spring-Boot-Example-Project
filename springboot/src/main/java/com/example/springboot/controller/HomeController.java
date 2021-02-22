@@ -46,7 +46,6 @@ public class HomeController {
 		return "register_success";
 	}
 
-
 	private String getSiteURL(HttpServletRequest request) {
 		String siteURL = request.getRequestURL().toString();
 		return siteURL.replace(request.getServletPath(), "");
@@ -59,5 +58,10 @@ public class HomeController {
 		} else {
 			return "verify_fail";
 		}
+	}
+
+	@GetMapping("/403")
+	public String accessDenied() {
+		return "403";
 	}
 }
