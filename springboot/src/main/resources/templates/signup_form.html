@@ -2,20 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Sign Up - CodeJava</title>
-<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
-	rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="#{label.title}"></title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">	
+<style>
+body {
+	background-color: #009999;
+}
+</style>
 </head>
 <body>
+	<div>
+		<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/register?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+		<a style="float: right; padding-left: 10px;" th:href="@{/register?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+		<a style="float: right;" th:href="@{/}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
+	</div>
 	<div class="container text-center">
 		<div>
-			<h1>User Registration - Sign Up</h1>
+			<h1 class="text-center" th:text="#{label.user.registration}">User Registration</h1>
 		</div>
 		<form th:action="@{/process_register}" th:object="${user}"
 			method="post" style="max-width: 600px; margin: 0 auto;">
 			<div class="m-3">
 				<div class="form-group row">
-					<label class="col-4 col-form-label">E-mail: </label>
+					<label class="col-4 col-form-label" th:text="#{label.user.email}">E-mail </label>
 					<div class="col-8">
 						<input type="email" th:field="*{email}" class="form-control"
 							required />
@@ -23,7 +33,7 @@
 				</div>
 
 				<div class="form-group row">
-					<label class="col-4 col-form-label">Password: </label>
+					<label class="col-4 col-form-label" th:text="#{label.user.password}">Password </label>
 					<div class="col-8">
 						<input type="password" th:field="*{password}" class="form-control"
 							required minlength="6" maxlength="10" />
@@ -31,7 +41,7 @@
 				</div>
 
 				<div class="form-group row">
-					<label class="col-4 col-form-label">First Name: </label>
+					<label class="col-4 col-form-label" th:text="#{label.user.firstname}">First Name </label>
 					<div class="col-8">
 						<input type="text" th:field="*{firstName}" class="form-control"
 							required minlength="2" maxlength="20" />
@@ -39,7 +49,7 @@
 				</div>
 
 				<div class="form-group row">
-					<label class="col-4 col-form-label">Last Name: </label>
+					<label class="col-4 col-form-label" th:text="#{label.user.lastname}">Last Name </label>
 					<div class="col-8">
 						<input type="text" th:field="*{lastName}" class="form-control"
 							required minlength="2" maxlength="20" />
@@ -47,12 +57,13 @@
 				</div>
 
 				<div>
-					<button type="submit" class="btn btn-primary">Sign Up</button>
+					<button type="submit" class="btn btn-primary" th:text="#{label.sign.up}">Sign Up</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </body>
 </html>
