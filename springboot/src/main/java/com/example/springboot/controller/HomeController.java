@@ -1,7 +1,6 @@
 package com.example.springboot.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
