@@ -2,22 +2,100 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Library</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="#{label.title}"></title>
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
+<style>
+body {
+	background-color: #009999;
+}
+.margin {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.bg-div {
+  background-color: lightblue;
+}
+.full-height {
+  height:90%;
+}
+html, body {
+  height: 100%;
+}
+
+.p-slider {
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 20px;
+  
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+ }
+ .m-slider {
+  margin-right: 15%;
+  margin-left: 15%;
+ }
+
+</style>
 </head>
 <body>
-<a  th:href="@{/(lang=en)}" data-th-text="#{label.lang.en}"></a>
-<a th:href="@{/(lang=tr)}" data-th-text="#{label.lang.tr}"></a>
-	<div class="container text-center">
-		<h1 th:text = "#{hello.text}"></h1>
-		<h3>
-			<a th:href="@{/register}">Register</a>
-		</h3>
-		<h3>
-			<a th:href="@{/login}">Login</a>
-		</h3>
+	<div class="row">
+		<div class="col-sm-10">
+			<h1 class="text-center" th:text="#{label.project.name}">Library</h1>
+		</div>
+		<div class="col-sm-2">
+			<div class="row" style="float: center;">
+				<a th:href="@{/(lang=tr)}"><img
+					th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> <a
+					th:href="@{/(lang=en)}"><img th:src="@{/img/english_flag.png}"
+					width="25" height="21" /></a>
+			</div>
+
+			<div class="row" style="float: center;">
+				<a class="btn btn-primary  btn-xs" th:href="@{/register}"
+					role="button" th:text="#{label.sign.up}">Sign up</a> <a
+					class="btn btn-primary  btn-xs" th:href="@{/login}" role="button"
+					th:text="#{label.log.in}">Log in</a>
+			</div>
+
+		</div>
 	</div>
+
+	<div id="myCarousel" class="carousel slide bg-div full-height" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner p-slider">
+    <div class="item active m-slider">
+     <p th:text="#{label.sentence.for.mainpage.slider.one}"></p>
+    </div>
+
+    <div class="item m-slider">
+     <p th:utext="#{label.sentence.for.mainpage.slider.two}"></p>
+    </div>
+
+    <div class="item m-slider">
+      <p th:text="#{label.sentence.for.mainpage.slider.three}"></p>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
