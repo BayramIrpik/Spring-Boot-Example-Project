@@ -1,18 +1,23 @@
 package com.example.springboot.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.springboot.entity.Role;
 import com.example.springboot.entity.User;
+import com.example.springboot.repository.RoleRepository;
 import com.example.springboot.repository.UserRepository;
 
 import net.bytebuddy.utility.RandomString;
@@ -24,6 +29,9 @@ public class UserService {
 	private UserRepository repo;
 	
 	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
@@ -32,6 +40,9 @@ public class UserService {
 	public List<User> listAll() {
 		return repo.findAll();
 	}
+	
+	@Value("${spring.mail.username}")
+	private String email;
 	
 	public void register(User user, String siteURL) 
 			throws UnsupportedEncodingException, MessagingException {
@@ -42,6 +53,11 @@ public class UserService {
 		user.setVerificationCode(randomCode);
 		user.setEnabled(false);
 		
+		Role role=roleRepository.findByRole(2L);
+		Set<Role> roles = new HashSet<>();
+		roles.add(role);
+		user.setRoles(roles);
+		
 		repo.save(user);
 		
 		sendVerificationEmail(user, siteURL);
@@ -50,14 +66,14 @@ public class UserService {
 	private void sendVerificationEmail(User user, String siteURL) 
 			throws MessagingException, UnsupportedEncodingException {
 		String toAddress = user.getEmail();
-		String fromAddress = "need email address";
-		String senderName = "your company name";
+		String fromAddress = email;
+		String senderName = "Spring Boot Project";
 		String subject = "Please verify your registration";
 		String content = "Dear [[name]],<br>"
 				+ "Please click the link below to verify your registration:<br>"
 				+ "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
 				+ "Thank you,<br>"
-				+ "Your company name.";
+				+ "Spring Boot Project.";
 		
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
