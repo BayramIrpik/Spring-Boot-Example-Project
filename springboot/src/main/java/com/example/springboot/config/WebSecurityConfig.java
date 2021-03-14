@@ -43,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				// .antMatchers("/deneme").hasAuthority("USER")
 				.anyRequest().permitAll()
 				.and()
 				.formLogin()
@@ -52,8 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/useroperations")
 				.permitAll()
 				.and()
-				.logout().logoutSuccessUrl("/index").permitAll()
-				.and().exceptionHandling().accessDeniedPage("/403");
+				.logout().logoutSuccessUrl("/index").permitAll();
 	}
 
 }
