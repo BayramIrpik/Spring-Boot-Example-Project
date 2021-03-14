@@ -2,6 +2,8 @@ package com.example.springboot.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,18 +14,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springboot.detail.CustomUserDetails;
 import com.example.springboot.entity.Book;
+import com.example.springboot.entity.User;
 import com.example.springboot.service.BookService;
+import com.example.springboot.service.UserService;
 
 @Controller
 public class BookController {
 
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/addbook")
 	public String addbook(Model model) {
@@ -33,12 +42,14 @@ public class BookController {
 	}
 
 	@PostMapping("/savebook")
-	public String savebook(@ModelAttribute("book") Book book, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+	public String savebook(@ModelAttribute("book") Book book, BindingResult result, RedirectAttributes redirectAttributes) {
+		
+		User user=userService.getById(12L);
+		
 		book.setReserve(false);
 		book.setTaken(false);
 		book.setDeleted(false);
-		book.setUserId(0L);
+		book.setUser(user);
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "error");
 			return "redirect:/addbook";
@@ -91,9 +102,10 @@ public class BookController {
 	public String reserve(@PathVariable(name = "id") Long id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+		User user=userService.getById(userDetails.getId());
 		
 		Book book = bookService.getById(id);
-		book.setUserId(userDetails.getId());
+		book.setUser(user);
 		book.setReserve(true);
 		bookService.save(book);
 
@@ -102,10 +114,10 @@ public class BookController {
 
 	@RequestMapping("/cancelRezervation/{id}")
 	public String cancelRezervation(@PathVariable(name = "id") Long id) {
+		User user=userService.getById(12L);
 		
-
 		Book book = bookService.getById(id);
-		book.setUserId(0L);
+		book.setUser(user);
 		book.setReserve(false);
 		bookService.save(book);
 
@@ -123,5 +135,81 @@ public class BookController {
 
 		model.addAttribute("userId", userDetails.getId().toString());
 		return "reserve";
+	}
+	
+	@RequestMapping("/lend")
+	public String lendAndReceive(Model model) {
+
+		List<Book> listBook = bookService.getReservedBooks();
+		model.addAttribute("listBook", listBook);
+
+		return "lend";
+	}
+
+	@RequestMapping("/receive/{id}")
+	public String receive(@PathVariable(name = "id") Long id) {
+		User user=userService.getById(12L);
+		
+		Book book = bookService.getById(id);
+		book.setUser(user);
+		book.setTaken(false);
+		book.setReserve(false);
+		bookService.save(book);
+
+		return "redirect:/receive";
+	}
+
+	@RequestMapping("/lend/{id}")
+	public String lend(@PathVariable(name = "id") Long id) {
+		
+		
+		Book book = bookService.getById(id);
+		book.setTaken(true);
+		book.setReserve(false);
+		
+		book.getUsers().add(book.getUser());
+		bookService.save(book);
+
+		return "redirect:/lend";
+	}
+	
+	@PostMapping("/updatebook")
+	public String updatebook(@ModelAttribute("book") Book book) {
+
+		bookService.save(book);
+		
+		return "redirect:/editbooks";
+	}
+	
+	@RequestMapping("/receive")
+	public String receive(Model model) {
+
+		List<Book> listBook = bookService.getTakenBooks();
+		model.addAttribute("listBook", listBook);
+
+		return "receive";
+	}
+	
+	@RequestMapping("/borrowed")
+	public String borrowed(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+		User user=userService.getById(userDetails.getId());
+		List<Book> listBook = bookService.getBooksTakenByUser(user);
+		model.addAttribute("listBook", listBook);
+
+		return "borrowed";
+	}
+	
+	@RequestMapping("/cancelRezervationAdmin/{id}")
+	public String cancelRezervationAdmin(@PathVariable(name = "id") Long id) {
+		User user=userService.getById(12L);
+		
+		Book book = bookService.getById(id);
+		book.setUser(user);
+		book.setReserve(false);
+		bookService.save(book);
+
+		return "redirect:/lend";
 	}
 }
