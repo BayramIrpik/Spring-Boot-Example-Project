@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="#{label.title}"></title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+	background-color: #009999;
+}
+* {
+	box-sizing: border-box
+}
+
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+</style>
+</head>
+<body>
+
+<div>
+	<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/receive?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+	<a style="float: right; padding-left: 10px;" th:href="@{/receive?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+	<a style="float: right;" th:href="@{/useroperations}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
+</div>
+	
+	
+	<div>
+	<h3 align="center" th:text="#{label.receive.book}">Receive Book</h3>
+	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" title="Type in a name">
+		<table id="myTable" border="1">
+			<thead>
+				<tr class="header">
+					<th><label th:text="#{label.book.name}">Book Name</label><input type="radio"  onClick="choose('0')" name="search"  checked></th>
+					<th><label th:text="#{label.author.name}">Author Name</label><input type="radio" onClick="choose('2')" name="search" ></th>
+					<th><label th:text="#{label.person.name}">User Name</label><input type="radio" onClick="choose('3')" name="search" ></th>
+					<th><label th:text="#{label.user.email}">Email</label><input type="radio" onClick="choose('4')" name="search" ></th>
+					<th th:text="#{label.operations}">Operations</th>
+				
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${listBook}">
+					<td th:text="${book.bookName}">Book Name</td>
+					<td th:text="${book.authorName}">Author Name</td>
+					<td th:text="${book.user.getFirstName()}+' '+${book.user.getLastName()}">User Name</td>
+					<td th:text="${book.user.getEmail()}">Email</td>
+					
+					<td >	
+					<p th:if="${book.taken}"><a class="btn btn-primary  btn-xs" th:href="@{'/receive/' + ${book.id}}" th:text="#{label.receive.book}">Receive Book</a></p>		
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<script>
+
+	   var	searchCondition=0;
+	  function choose(choice){
+		  searchCondition = choice;
+		  document.getElementById('myInput').value = '';
+		}
+	
+		function myFunction() {
+			  var input, filter, table, tr, td, i, txtValue;
+			  input = document.getElementById("myInput");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[searchCondition];
+			    if (td) {
+			      txtValue = td.textContent || td.innerText;
+			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    }       
+			  }
+			}
+		
+	</script>
+</body>
+</html>

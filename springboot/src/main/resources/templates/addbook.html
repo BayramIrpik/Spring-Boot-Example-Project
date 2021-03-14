@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="#{label.title}"></title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+body {
+	background-color: #009999;
+}
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+}
+</style>
+</head>
+<body>
+<div>
+		<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/addbook?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+		<a style="float: right; padding-left: 10px;" th:href="@{/addbook?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+		<a style="float: right;" th:href="@{/useroperations}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
+</div>
+<div class="alert alert-success" role="alert" th:text="#{label.successful.save}" th:if="${success}"></div>
+<div class="alert alert-danger" role="alert" th:text="#{label.unsuccessful.save}" th:if="${error}"></div>
+<div align="center">
+    <h3 th:text="#{label.add.book}">Add Book</h3>
+    <form action="#" th:action="@{/savebook}" method="post" th:object="${book}">
+        <label th:utext="#{label.book.names}">Book Name</label>
+        <input type="text" th:field="*{bookName}" /><br/>
+ 
+        <label th:text="#{label.author.name}">Author Name</label>
+        <input type="text" th:field="*{authorName}" /><br/>
+        
+        <button class="btn btn-primary  btn-xs" type="submit" th:text="#{label.save}">Save</button>    
+    </form>
+</div>
+
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</body>
+</html>

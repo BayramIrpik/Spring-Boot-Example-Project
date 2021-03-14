@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="#{label.title}"></title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+body {
+	background-color: #009999;
+}
+
+</style>
+</head>
+<body>
+		
+	<div class="row">
+		<div class="col-sm-10">
+			<h1 th:text="#{label.hello}+' '+${username}"></h1>
+		</div>
+		<div class="col-sm-2">
+			<div >
+				<a th:href="@{/useroperations?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+				<a th:href="@{/useroperations?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+			</div>
+			<div>
+			<a class="btn btn-primary  btn-xs" th:href="@{/logout}" role="button" th:text="#{label.log.out}">Log out</a> 
+			</div>
+		</div>
+	</div>	
+		
+	<div >
+
+
+		<ul sec:authorize="hasAnyAuthority('USER')">
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/reserve}"
+				role="button" th:text="#{label.reserve.book}">Reserve Book</a></li>
+
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/borrowed}"
+				role="button" th:text="#{label.borrowed.book.history}">Borrowed
+					Book History</a></li>
+		</ul>
+
+		<ul sec:authorize="hasAnyAuthority('ADMIN')">
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/lend}"
+				role="button" th:text="#{label.lend.book}">Lend a Book</a></li>
+
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/receive}"
+				role="button" th:text="#{label.receive.book}">Receive Book</a></li>
+
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/editbooks}"
+				role="button" th:text="#{label.edit.books}">Edit Books</a></li>
+			
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/addbook}"
+				role="button" th:text="#{label.add.book}">Add Book</a></li>
+		</ul>
+		
+		<ul sec:authorize="hasAnyAuthority('ADMIN','USER')">
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/password/0}"
+				role="button" th:text="#{label.change.password}">Change Password</a></li>
+		</ul>
+
+	</div>
+
+
+
+	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="#{label.title}"></title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<style>
+body {
+	background-color: #009999;
+}
+* {
+	box-sizing: border-box
+}
+
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+}
+</style>
+</head>
+<body>
+<div>
+		<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/editbook?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+		<a style="float: right; padding-left: 10px;" th:href="@{/editbook?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+		<a style="float: right;" th:href="@{/editbooks}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
+</div>
+<div align="center">
+<h3 align="center" th:text="#{label.edit.books}">Edit Books</h3>
+<div class="alert alert-success" role="alert" th:text="#{label.successful.edit}" th:if="${success}"></div>
+<div class="alert alert-danger" role="alert" th:text="#{label.unsuccessful.edit}" th:if="${error}"></div>
+			<form action="#" th:action="@{/updatebook}" th:object="${book}" method="POST">
+					<input type="hidden" th:field="*{id}" />
+					<input type="hidden" th:field="*{reserve}" />
+					<input type="hidden" th:field="*{taken}" />
+					<input type="hidden" th:field="*{deleted}" />
+					<input type="hidden" th:field="*{user}" />
+					<input type="hidden" th:field="*{users}" />
+					
+		<label th:utext="#{label.book.names}">Book Name</label>
+        <input type="text" th:field="*{bookName}" /><br/>
+ 
+        <label th:text="#{label.author.name}">Author Name</label>
+        <input type="text" th:field="*{authorName}" /><br/>
+        
+        <button class="btn btn-primary  btn-xs" type="submit" th:text="#{label.save}">Save</button> 
+		</form>
+	</div>
+		<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</body>
+</html>
