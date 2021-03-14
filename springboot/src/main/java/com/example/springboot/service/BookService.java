@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.springboot.entity.Book;
+import com.example.springboot.entity.User;
 import com.example.springboot.repository.BookRepository;
 
 @Service
@@ -29,4 +30,17 @@ public class BookService {
 		bookRepository.save(book);
 	}
 	
+	public List<Book> getReservedBooks(){
+		
+		return bookRepository.findByDeletedAndReserve(false, true);
+	}
+	
+	public List<Book> getTakenBooks(){
+		return bookRepository.findByDeletedAndTaken(false, true);
+	}
+	
+	public List<Book> getBooksTakenByUser(User user){
+		
+		return bookRepository.findByUsers(user);
+	}
 }

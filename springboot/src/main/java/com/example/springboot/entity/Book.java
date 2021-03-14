@@ -13,7 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.springboot.service.UserService;
 
 @Entity
 @Table(name = "books")
@@ -41,10 +47,11 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
             )
-    private Set<User> userAndBookList = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
-
-    private Long userId;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
 	
 	public Long getId() {
 		return id;
@@ -95,20 +102,28 @@ public class Book {
 		this.deleted = deleted;
 	}
 
-	public Set<User> getUserAndBookList() {
-		return userAndBookList;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUserAndBookList(Set<User> userAndBookList) {
-		this.userAndBookList = userAndBookList;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", bookName=" + bookName + ", authorName=" + authorName + ", reserve=" + reserve
+				+ ", taken=" + taken + ", deleted=" + deleted + ", userAndBookList=" + users + ", user="
+				+ user + "]";
+	}
+	
 	
 }
