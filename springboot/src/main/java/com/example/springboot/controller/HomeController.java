@@ -42,8 +42,8 @@ public class HomeController implements ErrorController {
 	public String useroperations(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-
-		model.addAttribute("username", userDetails.getFullName());
+		String fullname=userDetails.getFullName();
+		model.addAttribute("username",fullname );
 		return "user_operations";
 	}
 

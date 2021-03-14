@@ -114,4 +114,18 @@ public class UserService {
 		return repo.getOne(id);
 	}
 	
+	public void save(User user) {
+		
+		repo.save(user);
+	}
+	
+	public String passwordEncode(String password) {
+	
+		return passwordEncoder.encode(password);
+	}
+	
+	public boolean passwordMatchesControl(String password,String encoded) {
+	
+		return passwordEncoder.matches(password, encoded);
+	}
 }

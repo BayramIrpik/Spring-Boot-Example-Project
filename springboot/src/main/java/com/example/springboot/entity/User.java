@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -47,6 +48,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
             )
     private Set<Role> roles = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Book> book;
 	
 	public String getFullName() {
 		return this.firstName + " " + this.lastName;
@@ -114,6 +118,14 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Set<Book> getBook() {
+		return book;
+	}
+
+	public void setBook(Set<Book> book) {
+		this.book = book;
 	}
 
 	
