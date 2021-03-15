@@ -1,9 +1,12 @@
 package com.example.springboot.controller;
 
+import java.net.MalformedURLException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -17,12 +20,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.springboot.detail.CustomUserDetails;
 import com.example.springboot.entity.User;
+import com.example.springboot.service.OpenWeatherMapService;
+
 
 @Controller
 public class HomeController implements ErrorController {
-
+	@Autowired
+	private OpenWeatherMapService openWeatherMapService;
+	
 	@GetMapping("")
-	public String viewHomePage() {
+	public String viewHomePage(Model model) {
+
+		try {
+			model.addAttribute("degreOfWeather",openWeatherMapService.getTemperature());
+		} catch (MalformedURLException e) {
+			
+			e.printStackTrace();
+		}
 		return "index";
 	}
 
