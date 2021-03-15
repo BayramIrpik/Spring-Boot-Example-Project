@@ -1,6 +1,8 @@
 package com.example.springboot.repository;
 
+import java.util.Collection;
 import java.util.List;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +25,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	public List<Book> findByDeletedAndTaken(boolean deleted,boolean taken);
 	
 	public List<Book> findByUsers(User user);
+	
+	
 }

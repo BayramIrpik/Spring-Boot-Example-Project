@@ -1,5 +1,6 @@
 package com.example.springboot.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.example.springboot.entity.Book;
 import com.example.springboot.entity.User;
 import com.example.springboot.repository.BookRepository;
+
+
 
 @Service
 public class BookService {
@@ -42,5 +45,22 @@ public class BookService {
 	public List<Book> getBooksTakenByUser(User user){
 		
 		return bookRepository.findByUsers(user);
+	}
+	
+	public List<Book> getRestBookList(){
+		List<Book> listBook=bookRepository.findAll();
+		List<Book> listRestBook=new ArrayList<Book>();
+		for(Book book:listBook) {
+			Book b=new Book(book.getId(), book.getBookName(), book.getAuthorName());
+			listRestBook.add(b);
+		}
+		
+		return listRestBook;
+	}
+	
+public Book getByIdRest(Long id) {
+	Book book=bookRepository.getById(id);
+	Book b=new Book(book.getId(), book.getBookName(),book.getAuthorName());
+		return b;
 	}
 }

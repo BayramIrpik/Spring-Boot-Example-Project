@@ -14,12 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.example.springboot.service.UserService;
 
 @Entity
 @Table(name = "books")
@@ -53,6 +48,18 @@ public class Book {
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
 	
+	
+	public Book() {
+		super();
+	}
+
+	public Book(Long id, String bookName, String authorName) {
+		super();
+		this.id = id;
+		this.bookName = bookName;
+		this.authorName = authorName;
+	}
+
 	public Long getId() {
 		return id;
 	}
