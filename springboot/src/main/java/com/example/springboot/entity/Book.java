@@ -44,7 +44,7 @@ public class Book {
             )
     private Set<User> users = new HashSet<>();
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
 	
