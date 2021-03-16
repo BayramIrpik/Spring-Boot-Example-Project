@@ -128,4 +128,9 @@ public class UserService {
 	
 		return passwordEncoder.matches(password, encoded);
 	}
+	
+	public User findByEmail(String email) {
+		
+		return repo.findByEmail(email);
+	}
 }
