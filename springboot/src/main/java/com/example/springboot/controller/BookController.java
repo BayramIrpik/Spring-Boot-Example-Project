@@ -40,12 +40,10 @@ public class BookController {
 	@PostMapping("/savebook")
 	public String savebook(@ModelAttribute("book") Book book, BindingResult result, RedirectAttributes redirectAttributes) {
 		
-		User user=userService.getById(12L);
-		
 		book.setReserve(false);
 		book.setTaken(false);
 		book.setDeleted(false);
-		book.setUser(user);
+
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "error");
 			return "redirect:/addbook";
@@ -110,10 +108,8 @@ public class BookController {
 
 	@RequestMapping("/cancelRezervation/{id}")
 	public String cancelRezervation(@PathVariable(name = "id") Long id) {
-		User user=userService.getById(12L);
-		
 		Book book = bookService.getById(id);
-		book.setUser(user);
+		book.setUser(null);
 		book.setReserve(false);
 		bookService.save(book);
 
@@ -144,10 +140,9 @@ public class BookController {
 
 	@RequestMapping("/receive/{id}")
 	public String receive(@PathVariable(name = "id") Long id) {
-		User user=userService.getById(12L);
 		
 		Book book = bookService.getById(id);
-		book.setUser(user);
+		book.setUser(null);
 		book.setTaken(false);
 		book.setReserve(false);
 		bookService.save(book);
@@ -199,10 +194,9 @@ public class BookController {
 	
 	@RequestMapping("/cancelRezervationAdmin/{id}")
 	public String cancelRezervationAdmin(@PathVariable(name = "id") Long id) {
-		User user=userService.getById(12L);
 		
 		Book book = bookService.getById(id);
-		book.setUser(user);
+		book.setUser(null);
 		book.setReserve(false);
 		bookService.save(book);
 
