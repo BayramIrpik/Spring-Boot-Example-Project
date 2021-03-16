@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springboot.detail.CustomUserDetails;
 import com.example.springboot.entity.User;
@@ -28,9 +29,15 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/process_register")
-	public String processRegister(User user, HttpServletRequest request)
+	public String processRegister(User user, HttpServletRequest request,RedirectAttributes redirectAttributes)
 			throws UnsupportedEncodingException, MessagingException {
+		User u=userService.findByEmail(user.getEmail());
+		if(u!=null) {
+			redirectAttributes.addFlashAttribute("error", "error");
+			return "redirect:/register";
+		}
 		userService.register(user, getSiteURL(request));
+		
 		return "register_success";
 	}
 
