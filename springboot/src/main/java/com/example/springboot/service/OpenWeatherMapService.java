@@ -23,7 +23,7 @@ public class OpenWeatherMapService {
 	
 	private String urlPart="&appid=";
 	
-	private String apikey="7e940b52f9ff71efbb48857a78162930";
+	private String apikey="";
 	
 	private String fullUrl=url+location+urlPart+apikey;
 	
