@@ -41,13 +41,13 @@
 					</td>
 					
 					<td th:switch="${book.reserve}">
-						<p th:case="true">
-							<p th:if="${book.user.getId()}!=12 and ${book.user.getId()} != ${userId}" th:text="#{label.reserved}">Reserved</p>
-						    <p th:if="${book.user.getId()} == ${userId} and !${book.taken}"><a class="btn btn-primary  btn-xs"  th:href="@{'/cancelRezervation/' + ${book.id}}" th:text="#{label.cancel.reservation}">Cancel Reservation</a></p>
+						<p th:case="false">
+							<p th:if="${book.user}!=null and ${book.user.getId()} != ${userId}" th:text="#{label.reserved}">Reserved</p>
+						    <p th:if="${book.user}!=null and ${book.user.getId()} == ${userId} and !${book.taken}"><a class="btn btn-primary  btn-xs"  th:href="@{'/cancelRezervation/' + ${book.id}}" th:text="#{label.cancel.reservation}">Cancel Reservation</a></p>
 						
 						
 
-						<p th:case="false">
+						<p th:case="true">
 						<p th:if="!${book.reserve} and !${book.taken} "><a class="btn btn-primary  btn-xs"  th:href="@{'/reserve/' + ${book.id}}" th:text="#{label.reserve}">Reserve</a></p>
 						
 					</td>
