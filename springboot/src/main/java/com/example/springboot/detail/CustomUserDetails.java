@@ -14,6 +14,8 @@ import com.example.springboot.entity.User;
 
 public class CustomUserDetails implements UserDetails {
 
+	private static final long serialVersionUID = 4148723256754258440L;
+	
 	private User user;
 
 	public CustomUserDetails(User user) {
