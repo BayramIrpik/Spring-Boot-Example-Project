@@ -5,53 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title th:text="#{label.title}"></title>
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body {
-	background-color: #009999;
-}
-* {
-	box-sizing: border-box
-}
-
-
-body, html {
-	height: 100%;
-	margin: 0;
-	font-family: Arial;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-#myInput {
-  background-image: url('/css/searchicon.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-</style>
+<link th:href="@{/css/main.css}" rel="stylesheet">
+<script type = "text/javascript" th:src="@{/js/functions.js}"></script>  
 </head>
 <body>
 <div>
@@ -62,7 +17,7 @@ body, html {
 	<div>
 	<h3 align="center" th:text="#{label.borrowed.book.history}">Borrowed Book History</h3>
 	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" title="Type in a name">
-		<table id="myTable" border="1" cellpadding="10">
+		<table id="myTable" border="1">
 			<thead>
 				<tr class="header">
 					<th ><label th:text="#{label.book.name}">Book Name</label> <input type="radio"  onClick="choose('0')" name="search" checked></th>
@@ -80,32 +35,5 @@ body, html {
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<script>
-	   var	searchCondition=0;
-	  function choose(choice){
-		  searchCondition = choice;
-		  document.getElementById('myInput').value = '';
-		}
-	
-		function myFunction() {
-			  var input, filter, table, tr, td, i, txtValue;
-			  input = document.getElementById("myInput");
-			  filter = input.value.toUpperCase();
-			  table = document.getElementById("myTable");
-			  tr = table.getElementsByTagName("tr");
-			  for (i = 0; i < tr.length; i++) {
-			    td = tr[i].getElementsByTagName("td")[searchCondition];
-			    if (td) {
-			      txtValue = td.textContent || td.innerText;
-			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-			        tr[i].style.display = "";
-			      } else {
-			        tr[i].style.display = "none";
-			      }
-			    }       
-			  }
-			}
-		
-	</script>
 </body>
 </html>

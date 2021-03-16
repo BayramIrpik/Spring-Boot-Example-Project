@@ -6,12 +6,7 @@
 <title th:text="#{label.title}"></title>
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
-<style>
-body {
-	background-color: #009999;
-}
-
-</style>
+<link th:href="@{/css/main.css}" rel="stylesheet">
 </head>
 <body>
 		
@@ -42,7 +37,7 @@ body {
 					Book History</a></li>
 		</ul>
 
-		<ul sec:authorize="hasAnyAuthority('ADMIN')">
+		<ul sec:authorize="hasAnyAuthority('USER')">
 			<li><a class="btn btn-primary  btn-xs" th:href="@{/lend}"
 				role="button" th:text="#{label.lend.book}">Lend a Book</a></li>
 
