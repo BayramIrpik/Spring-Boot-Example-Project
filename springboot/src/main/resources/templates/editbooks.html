@@ -11,8 +11,8 @@
 <body>
   
 <div>
-		<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/editbooks?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
-		<a style="float: right; padding-left: 10px;" th:href="@{/editbooks?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+		<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/admin/editbooks?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+		<a style="float: right; padding-left: 10px;" th:href="@{/admin/editbooks?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
 		<a style="float: right;" th:href="@{/useroperations}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
 </div>
 <div class="alert alert-success" role="alert" th:text="#{label.successful.delete}" th:if="${success}"></div>
@@ -34,9 +34,9 @@
 					<td th:text="${book.bookName}">Book Name</td>
 					<td th:text="${book.authorName}">Author Name</td>
 					<td >
-						<a class="btn btn-primary  btn-xs" th:href="@{'/editBook/' + ${book.id}}" th:text="#{label.edit}">Edit</a>
+						<a class="btn btn-primary  btn-xs" th:href="@{'/admin/editBook/' + ${book.id}}" th:text="#{label.edit}">Edit</a>
 							&nbsp;&nbsp;&nbsp;&nbsp; 
-						<a class="btn btn-primary  btn-xs" th:href="@{'/deleteBook/' + ${book.id}}" th:text="#{label.delete}">Delete</a>
+						<a class="btn btn-primary  btn-xs" th:href="@{'/admin/deleteBook/' + ${book.id}}" th:text="#{label.delete}">Delete</a>
 						
 					</td>
 					

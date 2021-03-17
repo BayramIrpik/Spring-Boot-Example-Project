@@ -9,13 +9,13 @@
 </head>
 <body>
 <div>
-		<a style="float: right;" th:href="@{/editbooks}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
+		<a style="float: right;" th:href="@{/admin/editbooks}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
 </div>
 <div align="center">
 <h3 align="center" th:text="#{label.edit.books}">Edit Books</h3>
 <div class="alert alert-success" role="alert" th:text="#{label.successful.edit}" th:if="${success}"></div>
 <div class="alert alert-danger" role="alert" th:text="#{label.unsuccessful.edit}" th:if="${error}"></div>
-			<form action="#" th:action="@{/updatebook}" th:object="${book}" method="POST">
+			<form action="#" th:action="@{/admin/updatebook}" th:object="${book}" method="POST">
 					<input type="hidden" th:field="*{id}" />
 					<input type="hidden" th:field="*{reserve}" />
 					<input type="hidden" th:field="*{taken}" />

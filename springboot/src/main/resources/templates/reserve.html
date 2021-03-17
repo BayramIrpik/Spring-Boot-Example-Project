@@ -10,8 +10,8 @@
 </head>
 <body>
 <div>
-	<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/reserve?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
-	<a style="float: right; padding-left: 10px;" th:href="@{/reserve?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+	<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/user/reserve?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+	<a style="float: right; padding-left: 10px;" th:href="@{/user/reserve?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
 	<a style="float: right;" th:href="@{/useroperations}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
 </div>
 	<div>
@@ -41,14 +41,14 @@
 					</td>
 					
 					<td th:switch="${book.reserve}">
-						<p th:case="false">
-							<p th:if="${book.user}!=null and ${book.user.getId()} != ${userId}" th:text="#{label.reserved}">Reserved</p>
-						    <p th:if="${book.user}!=null and ${book.user.getId()} == ${userId} and !${book.taken}"><a class="btn btn-primary  btn-xs"  th:href="@{'/cancelRezervation/' + ${book.id}}" th:text="#{label.cancel.reservation}">Cancel Reservation</a></p>
+						<p th:case="true">
+							<p th:if="${book.user}!=null and ${book.user.getId()} != ${userId} and !${book.taken}" th:text="#{label.reserved}">Reserved</p>
+						    <p th:if="${book.user}!=null and ${book.user.getId()} == ${userId} and !${book.taken}"><a class="btn btn-primary  btn-xs"  th:href="@{'/user/cancelRezervation/' + ${book.id}}" th:text="#{label.cancel.reservation}">Cancel Reservation</a></p>
 						
 						
 
-						<p th:case="true">
-						<p th:if="!${book.reserve} and !${book.taken} "><a class="btn btn-primary  btn-xs"  th:href="@{'/reserve/' + ${book.id}}" th:text="#{label.reserve}">Reserve</a></p>
+						<p th:case="false">
+						<p th:if="!${book.reserve} and !${book.taken} "><a class="btn btn-primary  btn-xs"  th:href="@{'/user/reserve/' + ${book.id}}" th:text="#{label.reserve}">Reserve</a></p>
 						
 					</td>
 				</tr>

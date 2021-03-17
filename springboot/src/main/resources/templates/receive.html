@@ -11,8 +11,8 @@
 <body>
 
 <div>
-	<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/receive?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
-	<a style="float: right; padding-left: 10px;" th:href="@{/receive?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
+	<a style="float: right; padding-left: 5px; padding-right: 10px;" th:href="@{/admin/receive?lang=tr}"><img th:src="@{/img/turkish_flag.png}" width="26" height="22" /></a> 
+	<a style="float: right; padding-left: 10px;" th:href="@{/admin/receive?lang=en}"><img th:src="@{/img/english_flag.png}" width="25" height="21" /></a>
 	<a style="float: right;" th:href="@{/useroperations}" ><i class='fas fa-arrow-left' style='font-size:24px;color:blue;'></i></a> 
 </div>
 	
@@ -39,7 +39,7 @@
 					<td th:text="${book.user.getEmail()}">Email</td>
 					
 					<td >	
-					<p th:if="${book.taken}"><a class="btn btn-primary  btn-xs" th:href="@{'/receive/' + ${book.id}}" th:text="#{label.receive.book}">Receive Book</a></p>		
+					<p th:if="${book.taken}"><a class="btn btn-primary  btn-xs" th:href="@{'/admin/receive/' + ${book.id}}" th:text="#{label.receive.book}">Receive Book</a></p>		
 					</td>
 					
 				</tr>

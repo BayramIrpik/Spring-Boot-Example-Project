@@ -29,25 +29,25 @@
 
 
 		<ul sec:authorize="hasAnyAuthority('USER')">
-			<li><a class="btn btn-primary  btn-xs" th:href="@{/reserve}"
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/user/reserve}"
 				role="button" th:text="#{label.reserve.book}">Reserve Book</a></li>
 
-			<li><a class="btn btn-primary  btn-xs" th:href="@{/borrowed}"
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/user/borrowed}"
 				role="button" th:text="#{label.borrowed.book.history}">Borrowed
 					Book History</a></li>
 		</ul>
 
 		<ul sec:authorize="hasAnyAuthority('ADMIN')">
-			<li><a class="btn btn-primary  btn-xs" th:href="@{/lend}"
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/admin/lend}"
 				role="button" th:text="#{label.lend.book}">Lend a Book</a></li>
 
-			<li><a class="btn btn-primary  btn-xs" th:href="@{/receive}"
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/admin/receive}"
 				role="button" th:text="#{label.receive.book}">Receive Book</a></li>
 
-			<li><a class="btn btn-primary  btn-xs" th:href="@{/editbooks}"
+			<li><a class="btn btn-primary  btn-xs" th:href="@{/admin/editbooks}"
 				role="button" th:text="#{label.edit.books}">Edit Books</a></li>
 			
-			<li><a class="btn btn-primary  btn-xs" th:href="@{/addbook}"
+			<li><a class="btn btn-primary  btn-xs" th:href="@{admin/addbook}"
 				role="button" th:text="#{label.add.book}">Add Book</a></li>
 		</ul>
 		
