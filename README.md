@@ -17,3 +17,4 @@ Features implemented in this project:
  * Email confirmation process in user registration
  
  
+If you want to download and run the code, you should read the 'Before Running Code.txt' file.
