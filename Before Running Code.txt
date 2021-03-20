@@ -1,0 +1,29 @@
+  If you want to use this project, you need to do some steps for the project to run flawlessly.
+
+  First of all, you have to set the database to your own settings before running on application.properties files.I used mySql. If you are using the same database, 
+you must change the username and password according to yours. But if you are using a different database, you should also change the database name and url part. And 
+you need to add the pom.xml dependency for the database.Before you run the code, you need to create a schema in the database. In my project, the schema name is library. 
+You can also see it in the link spring.datasource.url = jdbc: mysql: // localhost: 3306 / library. You can give the schema name library if you want, or you can change 
+it and give a schema name of your own. Run the project after creating the schema in the database. Run the following sql commands.
+
+SQL part:
+------------------------------------------------------------------------------------------------------------------------
+INSERT INTO library.roles (name) VALUES ('ADMIN');
+INSERT INTO library.roles (name) VALUES ('USER');
+
+INSERT INTO library.users (email, enabled, first_name, last_name, password) 
+VALUES ('admin@admin.com', true, 'Admin', 'Admin', '$2a$10$8Z7LyN4Xf5Ad/l2xt3MD8.w1NlY1eUDR4dFMfUzqPTfsSGW7NUMKm');
+
+INSERT INTO library.users_roles (user_id,role_id) VALUES (1,1);
+-------------------------------------------------------------------------------------------------------------------------
+
+After running the sql commands, an admin user with admin@admin.com mail and password 12345678 has been created.It is only added from the sql section when adding admin, 
+role information of normal users is added with code.The sql part is finished.
+
+  E-mail is sent for confirmation in user registration. For this part, you need to write your e-mail address and password in the applications.properties file. For the 
+spring.mail.username mail address, for the password in the spring.mail.password field.I used gmail. If you are using a different email, you should change the other parts 
+accordingly.And as additional info for gmail, 'Less secure app access' should be turned on in the security section. Or you may get an error.
+
+
+  Finally, weather information is shown in the project. Api key is required to show this information. You can register at https://openweathermap.org/ and get an api key 
+  for free use. After getting the apikey, add it to the variable in the OpenWeatherMapService class.
