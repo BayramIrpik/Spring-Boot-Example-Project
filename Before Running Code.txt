@@ -4,7 +4,8 @@
 you must change the username and password according to yours. But if you are using a different database, you should also change the database name and url part. And 
 you need to add the pom.xml dependency for the database.Before you run the code, you need to create a schema in the database. In my project, the schema name is library. 
 You can also see it in the link spring.datasource.url = jdbc: mysql: // localhost: 3306 / library. You can give the schema name library if you want, or you can change 
-it and give a schema name of your own. Run the project after creating the schema in the database. Run the following sql commands.
+it and give a schema name of your own. Run the project after creating the schema in the database. Run the following sql commands. If your schema name is not library,
+Don't forget to change with your schema name on below sql commands.
 
 SQL part:
 ------------------------------------------------------------------------------------------------------------------------
